@@ -1,5 +1,5 @@
 import React from "react";
-import { BookstoreServiceConsumer } from './bookstore-service-context';
+import { BookstoreServiceConsumer } from '../bookstore-service-context';
 
 // const withBookstoreService = () => (Wrapper) => {} - тут говорится о том что withBookstoreService эта функция которая возвращает 
 // функцию которую будут оборачивать в Wrapper
