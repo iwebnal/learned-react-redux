@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BookListItem from '../book-list-item';
 import { connect } from 'react-redux';
 import { withBookstoreService } from '../hoc'
+import { booksLoaded } from '../../actions';
 
 import './book-list.css';
 
@@ -67,18 +68,22 @@ const mapStateToProps = (state) => { // state - это state из Redux Store
 };
 
 // Вторая часть конфигурации метода (connect). Нужно чтобы передать действие action в store и вызвать функцию dispatch
-const mapDispatchToProps = (dispatch) => {
-    return {
-        booksLoaded: (newBooks) => {  // значением свойства booksLoaded будет функция которая будет dispatch-ть действие
-            dispatch({
-                type: 'BOOKS_LOADED',
-                payload: newBooks
-            })
-        }
-    };
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         booksLoaded: (newBooks) => {  // значением свойства booksLoaded будет функция которая будет dispatch-ть действие
+//             dispatch(booksLoaded(newBooks))
+//         }
+//     };
+// };
+const mapDispatchToProps = {
+    booksLoaded
 };
 
 
 export default withBookstoreService()(
-    connect(mapStateToProps, mapDispatchToProps)(BookList)
+    connect(mapStateToProps, mapDispatchToProps)(BookList) // тут ппроисходит подключение к Redux Store с помощью функции connect
+    // где mapStateToProps и mapDispatchToProps это конфигурации для подключения и работы с Redux Store
+    // mapStateToProps - описывает то какие данные мы хтим получить из Redux Store. В нашем случае это массив books
+    // mapDispatchToProps - описывает то какие действи захочет выполнить наш компонент в Redux Store-е.
 ); // передали конфигурацию в виде mapStateToProps и теперь компонент будет получать данные из Redux Store
